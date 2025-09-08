@@ -131,12 +131,114 @@ function updateLoveCountdown() {
     document.getElementById('seconds').textContent = seconds % 60;
 }
 
+// 加载预设音乐
+function loadPresetMusic() {
+    const audio = document.getElementById('loveSong');
+    const musicDisc = document.querySelector('.music-disc');
+    const playIndicator = document.querySelector('.play-indicator');
+    const needleContainer = document.querySelector('.needle-container');
+    const presetSelect = document.getElementById('presetMusic');
+    
+    // 获取选择的预设音乐URL
+    const selectedMusicUrl = presetSelect.value;
+    
+    if (selectedMusicUrl) {
+        // 移除之前可能存在的文件URL对象
+        if (audio.src && audio.src.startsWith('blob:')) {
+            try {
+                URL.revokeObjectURL(audio.src);
+            } catch (e) {
+                console.log('清理URL对象失败:', e);
+            }
+        }
+        
+        // 设置音频源
+        audio.src = selectedMusicUrl;
+        
+        // 尝试播放音乐
+        audio.play().then(() => {
+            // 播放成功
+            musicDisc.style.animationPlayState = 'running';
+            playIndicator.innerHTML = '<i class="fas fa-pause"></i>';
+            playIndicator.style.background = 'linear-gradient(135deg, #4caf50, #45a049)';
+            needleContainer.style.transform = 'rotate(-5deg)';
+            
+            // 显示成功提示
+            const notification = document.createElement('div');
+            notification.className = 'music-notification';
+            notification.textContent = '正在播放预设音乐';
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: rgba(0, 0, 0, 0.7);
+                color: white;
+                padding: 10px 15px;
+                border-radius: 5px;
+                z-index: 1000;
+                transition: opacity 0.3s;
+            `;
+            document.body.appendChild(notification);
+            
+            // 3秒后移除提示
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }).catch(error => {
+            console.log('播放预设音乐失败:', error);
+            playIndicator.innerHTML = '<i class="fas fa-exclamation-circle"></i>';
+            // 3秒后恢复按钮状态
+            setTimeout(() => {
+                playIndicator.innerHTML = '<i class="fas fa-music"></i>';
+            }, 3000);
+            
+            // 重置选择
+            presetSelect.value = '';
+        });
+    }
+}
+
 // 音乐播放控制
 function toggleMusic() {
     const audio = document.getElementById('loveSong');
     const musicDisc = document.querySelector('.music-disc');
     const playIndicator = document.querySelector('.play-indicator');
     const needleContainer = document.querySelector('.needle-container');
+    
+    // 如果音频源为空，触发文件选择对话框
+    if (!audio.src || audio.src === window.location.href) {
+        const musicFileInput = document.getElementById('musicFileInput');
+        musicFileInput.click();
+        
+        // 设置文件选择后的处理函数
+        musicFileInput.onchange = function(e) {
+            if (e.target.files && e.target.files[0]) {
+                const file = e.target.files[0];
+                const objectURL = URL.createObjectURL(file);
+                
+                // 设置音频源并播放
+                audio.src = objectURL;
+                audio.play().then(() => {
+                    // 播放成功
+                    musicDisc.style.animationPlayState = 'running';
+                    playIndicator.innerHTML = '<i class="fas fa-pause"></i>';
+                    playIndicator.style.background = 'linear-gradient(135deg, #4caf50, #45a049)';
+                    needleContainer.style.transform = 'rotate(-5deg)';
+                }).catch(error => {
+                    console.log('播放选择的音乐失败:', error);
+                    playIndicator.innerHTML = '<i class="fas fa-exclamation-circle"></i>';
+                    // 3秒后恢复按钮状态
+                    setTimeout(() => {
+                        playIndicator.innerHTML = '<i class="fas fa-music"></i>';
+                    }, 3000);
+                });
+            }
+        };
+        return;
+    }
     
     if (audio.paused) {
         audio.play().then(() => {
@@ -774,8 +876,6 @@ function initEmotionChart() {
 
 // 简单的记忆配对游戏
 function startMemoryGame() {
-    alert('记忆配对游戏即将开始！点击相同的图片进行配对。');
-    
     // 创建游戏区域
     const gameContainer = document.getElementById('memory-game');
     
@@ -1567,29 +1667,55 @@ window.addEventListener('load', () => {
     const playIndicator = document.querySelector('.play-indicator');
     const needleContainer = document.querySelector('.needle-container');
     
-    audio.play().then(() => {
-        // 播放成功
-        musicDisc.style.animationPlayState = 'running';
-        playIndicator.innerHTML = '<i class="fas fa-pause"></i>';
-        playIndicator.style.background = 'linear-gradient(135deg, #4caf50, #45a049)';
-        needleContainer.style.transform = 'rotate(-5deg)';
-    }).catch(error => {
-        console.log('自动播放失败，等待用户交互:', error);
-        // 停止旋转动画
-        musicDisc.style.animationPlayState = 'paused';
-        // 显示播放图标
-        playIndicator.innerHTML = '<i class="fas fa-play"></i>';
-        playIndicator.style.background = 'linear-gradient(135deg, #e91e63, #ff4081)';
-        needleContainer.style.transform = 'rotate(-15deg)';
+    // 设置自动播放标志
+    let isAudioEnabled = false;
+    
+    // 增强的自动播放函数
+    function attemptAutoPlay() {
+        if (isAudioEnabled) return;
         
-        // 添加用户交互事件监听器，用于启用音乐播放
-        document.addEventListener('click', enableAudioOnInteraction);
-        document.addEventListener('touchstart', enableAudioOnInteraction);
-    });
+        audio.play().then(() => {
+            // 播放成功
+            isAudioEnabled = true;
+            musicDisc.style.animationPlayState = 'running';
+            playIndicator.innerHTML = '<i class="fas fa-pause"></i>';
+            playIndicator.style.background = 'linear-gradient(135deg, #4caf50, #45a049)';
+            needleContainer.style.transform = 'rotate(-5deg)';
+            console.log('音乐自动播放成功');
+        }).catch(error => {
+            console.log('自动播放尝试失败，等待用户交互:', error);
+        });
+    }
+    
+    // 立即尝试自动播放
+    attemptAutoPlay();
+    
+    // 延迟100毫秒再次尝试（有些浏览器可能需要短暂延迟）
+    setTimeout(attemptAutoPlay, 100);
+    
+    // 再延迟1000毫秒第三次尝试
+    setTimeout(attemptAutoPlay, 1000);
+    
+    // 停止旋转动画
+    musicDisc.style.animationPlayState = 'paused';
+    // 显示播放图标
+    playIndicator.innerHTML = '<i class="fas fa-play"></i>';
+    playIndicator.style.background = 'linear-gradient(135deg, #e91e63, #ff4081)';
+    needleContainer.style.transform = 'rotate(-15deg)';
+    
+    // 添加多种用户交互事件监听器，增加触发播放的机会
+    document.addEventListener('click', enableAudioOnInteraction);
+    document.addEventListener('touchstart', enableAudioOnInteraction);
+    document.addEventListener('mousemove', enableAudioOnInteraction, { once: true });
+    document.addEventListener('keydown', enableAudioOnInteraction, { once: true });
+    document.addEventListener('scroll', enableAudioOnInteraction, { once: true });
     
     // 用户交互后启用音频播放的函数
     function enableAudioOnInteraction() {
+        if (isAudioEnabled) return;
+        
         audio.play().then(() => {
+            isAudioEnabled = true;
             console.log('用户交互后音乐开始播放');
             // 开始旋转动画
             musicDisc.style.animationPlayState = 'running';

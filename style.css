@@ -713,6 +713,54 @@ section h2:after {
     border-left: 5px solid #e91e63;
 }
 
+/* 记忆配对游戏样式 */
+.memory-game-grid {
+    max-width: 100%;
+    overflow: hidden;
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 10px !important;
+    margin-top: 20px !important;
+}
+
+.memory-card {
+    width: 80px !important;
+    height: 80px !important;
+    position: relative !important;
+    cursor: pointer !important;
+    overflow: hidden !important;
+    border-radius: 10px !important;
+    background-color: #fff !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.card-back {
+    width: 100% !important;
+    height: 100% !important;
+    background-color: #e91e63 !important;
+    border-radius: 10px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    color: white !important;
+    font-size: 24px !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    transition: transform 0.3s ease !important;
+}
+
+.card-front {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 10px !important;
+    transition: transform 0.3s ease !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+}
+
 .quiz-options {
     display: flex;
     flex-direction: column;

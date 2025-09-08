@@ -151,8 +151,8 @@
                     <p>回想我们在一起的这一年多时光，每一天都充满了温暖和幸福。从我们第一次相遇到现在，有欢笑，有泪水，但更多的是彼此陪伴的感动。</p>
                     <p>感谢你一直以来的理解、支持和爱。你是我生命中最美好的礼物，我珍惜和你在一起的每一分每一秒。</p>
                     <p>今天，我想对你说：我爱你，不仅是今天，而是未来的每一天。愿我们的爱情如美酒般醇厚，如钻石般永恒。</p>
-                    <p>永远爱你的人:HCB</p>
-                    <p>2025年9月9日</p>
+                    <p>永远爱你的人：HCB</p>
+                    <p>2025年09月09日</p>
                 </div>
             </div>
         </section>
@@ -215,7 +215,20 @@
             <!-- 由于网络音乐链接可能被浏览器安全策略阻止，建议添加本地音乐文件 -->
             <!-- 请在love-anniversary文件夹下创建music文件夹，并放入喜欢的mp3或m4a音乐文件 -->
             <!-- 然后将下面的src属性改为：src="music/你的音乐文件名.mp3" -->
-            <audio id="loveSong" src="" loop autoplay></audio>
+            <!-- 音乐播放器 -->
+            <audio id="loveSong" src="曹格 - 寂寞寂寞不好.mp3" loop></audio>
+            <!-- 让用户选择本地音乐文件的输入框 (隐藏) -->
+            <input type="file" id="musicFileInput" accept="audio/*" style="display: none;">
+            <!-- 预设音乐选择 -->
+            <div class="preset-music-container">
+                <select id="presetMusic" onchange="loadPresetMusic()">
+                    <option value="">选择预设音乐</option>
+                    <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">SoundHelix - 浪漫钢琴曲</option>
+                    <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">SoundHelix - 舒缓旋律</option>
+                    <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">SoundHelix - 轻柔吉他曲</option>
+                    <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3">SoundHelix - 温情弦乐</option>
+                </select>
+            </div>
             <div class="music-control" onclick="toggleMusic()">
                 <!-- 播放器主体 -->
                 <div class="music-player">

@@ -108,6 +108,23 @@ const togetherDate = new Date('2024-08-26'); // 修改为你们的爱情开始�
 <audio id="loveSong" src="你的音乐URL" loop autoplay></audio>
 ```
 
+### 自定义回忆问答游戏
+
+1. 打开 `script.js` 文件
+2. 找到 `quizData` 数组，修改问题、选项和正确答案：
+
+```javascript
+let quizData = [
+    {
+        question: "我们第一次见面的地方是哪里？",
+        options: ["高铁站", "公园", "火车站", "餐厅"],
+        correct: 0,
+        hint: "记得那天我们在车站初次相遇。"
+    },
+    // 更多问题...
+];
+```
+
 ## 技术栈
 
 - **HTML5** - 页面结构

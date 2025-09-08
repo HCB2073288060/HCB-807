@@ -500,8 +500,13 @@ function selectAnswer(optionElement, selectedIndex) {
         resultElement.className = 'quiz-result incorrect';
     }
     
-    // 显示下一题按钮
-    nextButton.style.display = 'inline-block';
+    // 确保显示下一题按钮
+    if (nextButton) {
+        nextButton.style.display = 'inline-block';
+        nextButton.style.visibility = 'visible';
+        nextButton.style.opacity = '1';
+        nextButton.style.zIndex = '100';
+    }
 }
 
 // 下一题
@@ -691,7 +696,7 @@ function initActivityChart() {
         const ctx = document.getElementById('activityChart').getContext('2d');
         
         // 模拟数据 - 表示不同活动类型的分布
-        const activities = ['约会聚餐', '看电影', '旅行', '赠送礼物', '聊天谈心', '户外活动'];
+         const activities = ['约会聚餐', '看电影听音乐', '旅行', '赠送礼物', '聊天谈心', '户外活动'];
         const counts = [25, 18, 10, 15, 30, 20];
         const colors = [
             'rgba(233, 30, 99, 0.8)',
@@ -764,9 +769,9 @@ function initMilestoneChart() {
     if (typeof Chart !== 'undefined') {
         const ctx = document.getElementById('milestoneChart').getContext('2d');
         
-        // 模拟数据 - 表示爱情里程碑
-        const milestones = ['相识', '第一次约会', '确认关系', '第一次旅行', '第一个情人节', '恋爱周年'];
-        const days = [0, 15, 30, 60, 120, 365];
+        // 实际数据 - 表示爱情里程碑
+         const milestones = ['相识', '确认关系', '第一次约会', '第一次旅行', '第一个情人节', '恋爱周年'];
+        const days = [0, 58, 95, 95, 231, 365];
         
         new Chart(ctx, {
             type: 'bar',
@@ -926,15 +931,13 @@ function initEmotionChart() {
     }
 }
 
-// 简单的记忆配对游戏
+// 记忆配对游戏
 function startMemoryGame() {
     // 创建游戏区域
     const gameContainer = document.getElementById('memory-game');
     
     // 清空现有内容
-    while (gameContainer.children.length > 3) {
-        gameContainer.removeChild(gameContainer.lastChild);
-    }
+    gameContainer.innerHTML = '';
     
     // 游戏卡片数据
     const cards = [
@@ -948,28 +951,6 @@ function startMemoryGame() {
         { id: 8, src: '图片/04.jpg', matched: false }
     ];
     
-    // 可选：使用更多不同的图片对来增加游戏难度
-    // const cards = [
-    //     { id: 1, src: '图片/01.jpg', matched: false },
-    //     { id: 2, src: '图片/02.jpg', matched: false },
-    //     { id: 3, src: '图片/03.jpg', matched: false },
-    //     { id: 4, src: '图片/04.jpg', matched: false },
-    //     { id: 5, src: '图片/05.jpg', matched: false },
-    //     { id: 6, src: '图片/06.jpg', matched: false },
-    //     { id: 7, src: '图片/07.jpg', matched: false },
-    //     { id: 8, src: '图片/08.jpg', matched: false },
-    //     { id: 9, src: '图片/01.jpg', matched: false },
-    //     { id: 10, src: '图片/02.jpg', matched: false },
-    //     { id: 11, src: '图片/03.jpg', matched: false },
-    //     { id: 12, src: '图片/04.jpg', matched: false },
-    //     { id: 13, src: '图片/05.jpg', matched: false },
-    //     { id: 14, src: '图片/06.jpg', matched: false },
-    //     { id: 15, src: '图片/07.jpg', matched: false },
-    //     { id: 16, src: '图片/08.jpg', matched: false }
-    // ];
-    // 如果使用更多图片，需要同时修改下面的网格布局设置
-    // gameGrid.style.gridTemplateColumns = 'repeat(4, 1fr)'; // 对于16张卡片
-    
     // 洗牌
     cards.sort(() => Math.random() - 0.5);
     
@@ -978,8 +959,9 @@ function startMemoryGame() {
     gameGrid.className = 'memory-game-grid';
     gameGrid.style.display = 'grid';
     gameGrid.style.gridTemplateColumns = 'repeat(4, 1fr)';
-    gameGrid.style.gap = '10px';
+    gameGrid.style.gap = '15px';
     gameGrid.style.marginTop = '20px';
+    gameGrid.style.width = '100%';
     
     // 游戏状态
     let flippedCards = [];
@@ -987,14 +969,24 @@ function startMemoryGame() {
     let matchedPairs = 0;
     
     // 创建卡片
-    cards.forEach((card, index) => {
+    cards.forEach((card) => {
         const cardElement = document.createElement('div');
         cardElement.className = 'memory-card';
-        cardElement.style.width = '80px';
-        cardElement.style.height = '80px';
+        cardElement.style.width = '120px';
+        cardElement.style.height = '120px';
         cardElement.style.position = 'relative';
         cardElement.style.cursor = 'pointer';
+        cardElement.style.perspective = '1000px';
         cardElement.dataset.id = card.id;
+        
+        // 卡片内部容器（用于3D翻转效果）
+        const cardInner = document.createElement('div');
+        cardInner.className = 'card-inner';
+        cardInner.style.width = '100%';
+        cardInner.style.height = '100%';
+        cardInner.style.position = 'relative';
+        cardInner.style.transition = 'transform 0.6s ease';
+        cardInner.style.transformStyle = 'preserve-3d';
         
         // 卡片背面
         const cardBack = document.createElement('div');
@@ -1007,7 +999,10 @@ function startMemoryGame() {
         cardBack.style.justifyContent = 'center';
         cardBack.style.alignItems = 'center';
         cardBack.style.color = 'white';
-        cardBack.style.fontSize = '24px';
+        cardBack.style.fontSize = '32px';
+        cardBack.style.position = 'absolute';
+        cardBack.style.backfaceVisibility = 'hidden';
+        cardBack.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
         cardBack.textContent = '❤️';
         
         // 卡片正面
@@ -1018,11 +1013,15 @@ function startMemoryGame() {
         cardFront.style.height = '100%';
         cardFront.style.objectFit = 'cover';
         cardFront.style.borderRadius = '10px';
-        cardFront.style.display = 'none';
+        cardFront.style.position = 'absolute';
+        cardFront.style.backfaceVisibility = 'hidden';
+        cardFront.style.transform = 'rotateY(180deg)';
+        cardFront.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
         
         // 添加到卡片元素
-        cardElement.appendChild(cardBack);
-        cardElement.appendChild(cardFront);
+        cardInner.appendChild(cardBack);
+        cardInner.appendChild(cardFront);
+        cardElement.appendChild(cardInner);
         
         // 添加点击事件
         cardElement.addEventListener('click', () => {
@@ -1030,9 +1029,8 @@ function startMemoryGame() {
                 return;
             }
             
-            // 翻转卡片
-            cardBack.style.display = 'none';
-            cardFront.style.display = 'block';
+            // 翻转卡片（3D效果）
+            cardInner.style.transform = 'rotateY(180deg)';
             cardElement.classList.add('flipped');
             
             flippedCards.push({ element: cardElement, card });
@@ -1049,9 +1047,9 @@ function startMemoryGame() {
                     
                     // 添加匹配成功动画
                     flippedCards.forEach(item => {
-                        item.element.style.backgroundColor = '#4caf50';
-                        item.element.style.transform = 'scale(1.05)';
-                        item.element.style.transition = 'transform 0.3s ease';
+                        // 增加卡片大小以突出显示
+                        item.element.querySelector('.card-inner').style.transform = 'rotateY(180deg) scale(1.05)';
+                        item.element.querySelector('.card-inner').style.transition = 'transform 0.3s ease';
                     });
                     
                     flippedCards = [];
@@ -1067,8 +1065,7 @@ function startMemoryGame() {
                     // 匹配失败，翻转回去
                     setTimeout(() => {
                         flippedCards.forEach(item => {
-                            item.element.querySelector('.card-back').style.display = 'flex';
-                            item.element.querySelector('.card-front').style.display = 'none';
+                            item.element.querySelector('.card-inner').style.transform = 'rotateY(0)';
                             item.element.classList.remove('flipped');
                         });
                         flippedCards = [];
@@ -1080,6 +1077,32 @@ function startMemoryGame() {
         
         gameGrid.appendChild(cardElement);
     });
+    
+    // 添加响应式布局调整
+    function adjustGameLayout() {
+        const screenWidth = window.innerWidth;
+        if (screenWidth < 600) {
+            // 在小屏幕上使用3列布局
+            gameGrid.style.gridTemplateColumns = 'repeat(3, 1fr)';
+            gameGrid.querySelectorAll('.memory-card').forEach(card => {
+                card.style.width = '80px';
+                card.style.height = '80px';
+            });
+        } else {
+            // 在大屏幕上使用4列布局
+            gameGrid.style.gridTemplateColumns = 'repeat(4, 1fr)';
+            gameGrid.querySelectorAll('.memory-card').forEach(card => {
+                card.style.width = '120px';
+                card.style.height = '120px';
+            });
+        }
+    }
+    
+    // 初始调整
+    adjustGameLayout();
+    
+    // 监听窗口大小变化
+    window.addEventListener('resize', adjustGameLayout);
     
     gameContainer.appendChild(gameGrid);
 }

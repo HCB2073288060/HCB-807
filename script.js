@@ -1,3 +1,48 @@
+// 尝试自动播放音乐
+function tryAutoPlayMusic() {
+    const audio = document.getElementById('loveSong');
+    const musicDisc = document.querySelector('.music-disc');
+    const playIndicator = document.querySelector('.play-indicator');
+    const needleContainer = document.querySelector('.needle-container');
+    
+    // 如果音频已设置了源
+    if (audio.src && audio.src !== window.location.href) {
+        // 尝试播放
+        audio.play().then(() => {
+            // 播放成功，取消静音
+            audio.muted = false;
+            musicDisc.style.animationPlayState = 'running';
+            playIndicator.innerHTML = '<i class="fas fa-pause"></i>';
+            playIndicator.style.background = 'linear-gradient(135deg, #4caf50, #45a049)';
+            needleContainer.style.transform = 'rotate(-5deg)';
+        }).catch(error => {
+            console.log('自动播放失败，等待用户交互:', error);
+            // 监听用户首次交互
+            const handleUserInteraction = () => {
+                audio.play().then(() => {
+                    audio.muted = false;
+                    musicDisc.style.animationPlayState = 'running';
+                    playIndicator.innerHTML = '<i class="fas fa-pause"></i>';
+                    playIndicator.style.background = 'linear-gradient(135deg, #4caf50, #45a049)';
+                    needleContainer.style.transform = 'rotate(-5deg)';
+                }).catch(err => {
+                    console.log('用户交互后播放仍失败:', err);
+                });
+                
+                // 移除所有事件监听器
+                document.removeEventListener('click', handleUserInteraction);
+                document.removeEventListener('touchstart', handleUserInteraction);
+                document.removeEventListener('keydown', handleUserInteraction);
+            };
+            
+            // 添加多种用户交互事件监听器
+            document.addEventListener('click', handleUserInteraction);
+            document.addEventListener('touchstart', handleUserInteraction);
+            document.addEventListener('keydown', handleUserInteraction);
+        });
+    }
+}
+
 // 初始化粒子效果
 function initParticles() {
     if (typeof particlesJS !== 'undefined') {
@@ -208,6 +253,9 @@ function toggleMusic() {
     const playIndicator = document.querySelector('.play-indicator');
     const needleContainer = document.querySelector('.needle-container');
     
+    // 首先确保音频已静音状态被取消
+    audio.muted = false;
+    
     // 如果音频源为空，触发文件选择对话框
     if (!audio.src || audio.src === window.location.href) {
         const musicFileInput = document.getElementById('musicFileInput');
@@ -304,15 +352,15 @@ function saveLoveMessage() {
 let quizData = [
     {
         question: "我们第一次见面的地方是哪里？",
-        options: ["咖啡馆", "公园", "电影院", "餐厅"],
+        options: ["高铁站", "公园", "火车站", "餐厅"],
         correct: 0,
-        hint: "记得那天我们喝了拿铁和卡布奇诺。"
+        hint: "记得那天我们在车站初次相遇。"
     },
     {
-        question: "我们第一次一起看的电影是什么？",
-        options: ["泰坦尼克号", "星际穿越", "你的名字", "复仇者联盟"],
-        correct: 2,
-        hint: "这是一部日本动画电影。"
+        question: "我们第一次一起做的手工是什么？",
+        options: ["滴胶画", "手印画", "印章画", "海报画"],
+        correct: 1,
+        hint: "这是我做的第一个手工。"
     },
     {
         question: "我们在一起的纪念日是哪一天？",
@@ -322,27 +370,27 @@ let quizData = [
     },
     {
         question: "你送给我的第一个礼物是什么？",
-        options: ["项链", "书籍", "手表", "花束"],
-        correct: 1,
-        hint: "是一本我一直想看的小说。"
+        options: ["鲜花饼", "明信片", "手表", "以上均不对"],
+        correct: 3,
+        hint: "是你呀！"
     },
     {
         question: "我们第一次一起旅行去了哪里？",
-        options: ["北京", "上海", "杭州", "成都"],
-        correct: 2,
-        hint: "那里有美丽的西湖。"
+        options: ["重庆", "福州", "武汉", "南京"],
+        correct: 3,
+        hint: "和你一起逛梧桐大道很开心呀~"
     },
     {
-        question: "我最喜欢的你的一首歌是什么？",
-        options: ["告白气球", "演员", "起风了", "说散就散"],
+        question: "我最喜欢的你唱的一首歌是什么？",
+        options: ["最后一页", "晴天", "特别的人", "慢慢喜欢你"],
         correct: 2,
-        hint: "这首歌有一句歌词是'这一路上走走停停'。"
+        hint: "这首歌有一句歌词是'不求计分的平等~'。"
     },
     {
-        question: "我们第一次牵手是在什么场合？",
-        options: ["过马路时", "看电影时", "散步时", "离别时"],
-        correct: 0,
-        hint: "当时车辆很多，我担心你的安全。"
+        question: "你第一次给的点的奶茶是什么？",
+        options: ["古茗", "霸王茶姬", "蜜雪冰城", "茶百道"],
+        correct: 1,
+        hint: "暑假我实习时，配合你的鲜花饼，嘻嘻！"
     },
     {
         question: "我最喜欢的你的一个特点是什么？",
@@ -1674,6 +1722,9 @@ window.addEventListener('load', () => {
     function attemptAutoPlay() {
         if (isAudioEnabled) return;
         
+        // 取消静音
+        audio.muted = false;
+        
         audio.play().then(() => {
             // 播放成功
             isAudioEnabled = true;
@@ -1696,9 +1747,7 @@ window.addEventListener('load', () => {
     // 再延迟1000毫秒第三次尝试
     setTimeout(attemptAutoPlay, 1000);
     
-    // 停止旋转动画
-    musicDisc.style.animationPlayState = 'paused';
-    // 显示播放图标
+    // 设置初始状态
     playIndicator.innerHTML = '<i class="fas fa-play"></i>';
     playIndicator.style.background = 'linear-gradient(135deg, #e91e63, #ff4081)';
     needleContainer.style.transform = 'rotate(-15deg)';
@@ -1714,6 +1763,9 @@ window.addEventListener('load', () => {
     function enableAudioOnInteraction() {
         if (isAudioEnabled) return;
         
+        // 取消静音
+        audio.muted = false;
+        
         audio.play().then(() => {
             isAudioEnabled = true;
             console.log('用户交互后音乐开始播放');
@@ -1727,6 +1779,9 @@ window.addEventListener('load', () => {
             // 移除事件监听器，避免重复调用
             document.removeEventListener('click', enableAudioOnInteraction);
             document.removeEventListener('touchstart', enableAudioOnInteraction);
+            document.removeEventListener('mousemove', enableAudioOnInteraction);
+            document.removeEventListener('keydown', enableAudioOnInteraction);
+            document.removeEventListener('scroll', enableAudioOnInteraction);
         }).catch(error => {
             console.log('用户交互后播放仍失败:', error);
         });

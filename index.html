@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>给我亲爱的807的生日惊喜</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- 粒子背景容器 -->
+    <div id="particles-js"></div>
+    
+    <!-- 页面内容容器 -->
+    <div class="container">
+        <!-- 欢迎部分 -->
+        <section class="welcome-section">
+            <div class="welcome-content">
+                <h1 class="animate__animated animate__fadeInDown">亲爱的807</h1>
+                <p class="animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">生日快乐！❤️</p>
+                <div class="heart-beat animate__animated animate__pulse" style="animation-delay: 0.6s;"></div>
+            </div>
+        </section>
+        
+        <!-- 倒计时部分 -->
+        <section class="countdown-section">
+            <h2>我们在一起的时光</h2>
+            <div class="countdown-container">
+                <div class="countdown-item">
+                    <div id="days" class="countdown-number">0</div>
+                    <div class="countdown-label">天</div>
+                </div>
+                <div class="countdown-item">
+                    <div id="hours" class="countdown-number">0</div>
+                    <div class="countdown-label">时</div>
+                </div>
+                <div class="countdown-item">
+                    <div id="minutes" class="countdown-number">0</div>
+                    <div class="countdown-label">分</div>
+                </div>
+                <div class="countdown-item">
+                    <div id="seconds" class="countdown-number">0</div>
+                    <div class="countdown-label">秒</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 照片墙部分 -->
+    <section class="photo-gallery-section">
+        <h2>我们的回忆</h2>
+        <!-- 网格布局容器 -->
+        <div class="photo-gallery">
+            <div class="gallery-container">
+                <div class="gallery-item" data-position="1">
+                    <img src="图片/01.jpg" alt="美好回忆">
+                    <div class="gallery-caption"><p>美好回忆</p></div>
+                </div>
+                <div class="gallery-item" data-position="2">
+                    <img src="图片/02.jpg" alt="快乐时光">
+                    <div class="gallery-caption"><p>快乐时光</p></div>
+                </div>
+                <div class="gallery-item" data-position="3">
+                    <img src="图片/03.jpg" alt="甜蜜瞬间">
+                    <div class="gallery-caption"><p>甜蜜瞬间</p></div>
+                </div>
+                <div class="gallery-item" data-position="4">
+                    <img src="图片/04.jpg" alt="温馨时刻">
+                    <div class="gallery-caption"><p>温馨时刻</p></div>
+                </div>
+                <div class="gallery-item" data-position="5">
+                    <img src="图片/05.jpg" alt="浪漫之旅">
+                    <div class="gallery-caption"><p>浪漫之旅</p></div>
+                </div>
+                <div class="gallery-item" data-position="6">
+                    <img src="图片/06.jpg" alt="幸福瞬间">
+                    <div class="gallery-caption"><p>幸福瞬间</p></div>
+                </div>
+                <div class="gallery-item" data-position="7">
+                    <img src="图片/07.jpg" alt="爱的见证">
+                    <div class="gallery-caption"><p>爱的见证</p></div>
+                </div>
+                <div class="gallery-item" data-position="8">
+                    <img src="图片/08.jpg" alt="美好时光">
+                    <div class="gallery-caption"><p>美好时光</p></div>
+                </div>
+                <div class="gallery-item" data-position="9">
+                    <img src="图片/09.jpg" alt="难忘记忆">
+                    <div class="gallery-caption"><p>难忘记忆</p></div>
+                </div>
+                <div class="gallery-item" data-position="10">
+                    <img src="图片/10.jpg" alt="温馨回忆">
+                    <div class="gallery-caption"><p>温馨回忆</p></div>
+                </div>
+                <div class="gallery-item" data-position="11">
+                    <img src="图片/11.jpg" alt="快乐瞬间">
+                    <div class="gallery-caption"><p>快乐瞬间</p></div>
+                </div>
+                <div class="gallery-item" data-position="12">
+                    <img src="图片/12.jpg" alt="浪漫时刻">
+                    <div class="gallery-caption"><p>浪漫时刻</p></div>
+                </div>
+                <div class="gallery-item" data-position="13">
+                    <img src="图片/13.jpg" alt="爱的印记">
+                    <div class="gallery-caption"><p>爱的印记</p></div>
+                </div>
+                <div class="gallery-item" data-position="14">
+                    <img src="图片/14.jpg" alt="幸福时光">
+                    <div class="gallery-caption"><p>幸福时光</p></div>
+                </div>
+                <div class="gallery-item" data-position="15">
+                    <img src="图片/15.jpg" alt="美好瞬间">
+                    <div class="gallery-caption"><p>美好瞬间</p></div>
+                </div>
+                <div class="gallery-item" data-position="16">
+                    <img src="图片/16.jpg" alt="温馨画面">
+                    <div class="gallery-caption"><p>温馨画面</p></div>
+                </div>
+                <div class="gallery-item" data-position="17">
+                    <img src="图片/17.jpg" alt="快乐回忆">
+                    <div class="gallery-caption"><p>快乐回忆</p></div>
+                </div>
+                <div class="gallery-item" data-position="18">
+                    <img src="图片/18.jpg" alt="浪漫回忆">
+                    <div class="gallery-caption"><p>浪漫回忆</p></div>
+                </div>
+                <div class="gallery-item" data-position="19">
+                    <img src="图片/19.jpg" alt="幸福印记">
+                    <div class="gallery-caption"><p>幸福印记</p></div>
+                </div>
+                <div class="gallery-item" data-position="20">
+                    <img src="图片/20.jpg" alt="未来可期">
+                    <div class="gallery-caption"><p>未来可期</p></div>
+                </div>
+            </div>
+            
+            <!-- 爱心形状布局容器 (默认隐藏) -->
+            <div class="gallery-heart-shape">
+                <!-- JavaScript将在这里动态创建爱心形状的图片 -->
+            </div>
+        </div>
+    </section>
+        
+        <!-- 情书部分 -->
+        <section class="love-letter-section">
+            <h2>给我亲爱的807的信</h2>
+            <div class="love-letter">
+                <div class="letter-paper">
+                    <p>亲爱的807：</p>
+                    <p>今天是你的生日，首先要说的是：生日快乐！🎂</p>
+                    <p>回想我们在一起的这一年多时光，每一天都充满了温暖和幸福。从我们第一次相遇到现在，有欢笑，有泪水，但更多的是彼此陪伴的感动。</p>
+                    <p>感谢你一直以来的理解、支持和爱。你是我生命中最美好的礼物，我珍惜和你在一起的每一分每一秒。</p>
+                    <p>今天，我想对你说：我爱你，不仅是今天，而是未来的每一天。愿我们的爱情如美酒般醇厚，如钻石般永恒。</p>
+                    <p>永远爱你的人</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 互动游戏部分 -->
+        <section class="game-section">
+            <h2>为你准备的小游戏</h2>
+            <div class="game-container">
+                <div class="game-item" id="memory-game">
+                    <h3>我们的记忆配对</h3>
+                    <p>点击开始游戏，配对我们的回忆吧！</p>
+                    <button class="game-button" onclick="startMemoryGame()">开始游戏</button>
+                </div>
+                <div class="game-item" id="message-box">
+                    <h3>爱的留言</h3>
+                    <p>写下你想对我说的话...</p>
+                    <textarea id="love-message" placeholder="在这里写下你的留言..."></textarea>
+                    <button class="game-button" onclick="saveLoveMessage()">保存留言</button>
+                    <div id="saved-messages" class="saved-messages"></div>
+                </div>
+                <div class="game-item" id="memory-quiz">
+                    <h3>我们的回忆问答</h3>
+                    <p>测试你对我们回忆的了解程度！</p>
+                    <button class="game-button" onclick="startMemoryQuiz()">开始问答</button>
+                    <div id="quiz-container" class="quiz-container" style="display: none;">
+                        <div id="quiz-question" class="quiz-question"></div>
+                        <div id="quiz-options" class="quiz-options"></div>
+                        <div id="quiz-result" class="quiz-result"></div>
+                        <button class="game-button" id="next-question" onclick="nextQuestion()" style="display: none;">下一题</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 数据可视化部分 -->
+        <section class="data-section">
+            <h2>我们的爱情数据</h2>
+            <div class="data-container">
+                <div class="data-item">
+                    <h3>幸福指数趋势</h3>
+                    <canvas id="relationshipChart" width="400" height="300"></canvas>
+                </div>
+                <div class="data-item">
+                    <h3>活动类型分布</h3>
+                    <canvas id="activityChart" width="400" height="300"></canvas>
+                </div>
+                <div class="data-item">
+                    <h3>爱情里程碑</h3>
+                    <canvas id="milestoneChart" width="400" height="300"></canvas>
+                </div>
+                <div class="data-item">
+                    <h3>情感分析</h3>
+                    <canvas id="emotionChart" width="400" height="300"></canvas>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 背景音乐控制 -->
+        <div class="music-player-container">
+            <!-- 由于网络音乐链接可能被浏览器安全策略阻止，建议添加本地音乐文件 -->
+            <!-- 请在love-anniversary文件夹下创建music文件夹，并放入喜欢的mp3或m4a音乐文件 -->
+            <!-- 然后将下面的src属性改为：src="music/你的音乐文件名.mp3" -->
+            <audio id="loveSong" src="" loop autoplay></audio>
+            <div class="music-control" onclick="toggleMusic()">
+                <!-- 播放器主体 -->
+                <div class="music-player">
+                    <!-- 唱片 -->
+                    <div class="music-disc">
+                        <div class="disc-texture"></div>
+                        <div class="disc-label"></div>
+                    </div>
+                    <!-- 唱针 -->
+                    <div class="needle-container">
+                        <div class="needle"></div>
+                    </div>
+                </div>
+                <!-- 播放指示器 -->
+                <div class="play-indicator">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <!-- 音符装饰 -->
+                <div class="music-notes">
+                    <div class="note"><i class="fas fa-music"></i></div>
+                    <div class="note"><i class="fas fa-music"></i></div>
+                    <div class="note"><i class="fas fa-music"></i></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 生日蛋糕部分 -->
+        <section class="birthday-cake-section">
+            <h2>为你准备的生日蛋糕</h2>
+            <div class="birthday-cake">
+                <div class="cake-layer"></div>
+                <div class="cake-layer"></div>
+                <div class="cake-layer"></div>
+                <div class="cake-top"></div>
+                <div class="candle"></div>
+                <div class="flame"></div>
+                <div class="cake-message">生日快乐!</div>
+            </div>
+            <button id="light-candles" class="cake-button">点燃蜡烛</button>
+        </section>
+
+        <!-- 生日愿望部分 -->
+        <section class="birthday-wish-section">
+            <h2>许下你的生日愿望</h2>
+            <div class="wish-container">
+                <textarea id="birthday-wish" placeholder="在这里写下你的生日愿望..."></textarea>
+                <button class="wish-button" onclick="saveBirthdayWish()">保存愿望</button>
+                <div class="wish-animation" id="wish-animation">
+                    <div class="wish-star"></div>
+                    <div class="wish-star"></div>
+                    <div class="wish-star"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 生日祝福墙 -->
+        <section class="birthday-wishes-wall-section">
+            <h2>生日祝福墙</h2>
+            <textarea id="new-blessing" class="blessing-input" placeholder="在这里写下你的生日祝福..."></textarea>
+            <div class="wishes-wall" id="wishes-wall">
+                <!-- 祝福将动态添加到这里 -->
+                <div class="wish-item">
+                    <p>愿你的每一个生日都充满欢乐和爱！</p>
+                    <span>— 永远爱你的我</span>
+                </div>
+                <div class="wish-item">
+                    <p>希望所有美好的事情都围绕着你！</p>
+                    <span>— 永远爱你的我</span>
+                </div>
+                <div class="wish-item">
+                    <p>祝你生日快乐，青春永驻！</p>
+                    <span>— 永远爱你的我</span>
+                </div>
+            </div>
+            <button id="add-blessing" class="add-wish-button">添加新祝福</button>
+        </section>
+
+        <!-- 底部信息 -->
+        <footer>
+            <p>永远爱你，直到时间尽头 ❤️</p>
+        </footer>
+    </div>
+    
+    <!-- 粒子效果脚本 -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <!-- 主脚本 -->
+    <script src="script.js"></script>
+</body>
+</html>

@@ -602,9 +602,27 @@ section h2:after {
     margin-top: 40px;
 }
 
-/* 互动游戏部分样式 */
+/* 游戏板块通用样式 */
 .game-section {
+    margin: 40px 0;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-align: center;
+}
+
+.game-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.game-section h2 {
+    color: #e91e63;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 28px;
 }
 
 .game-container {
@@ -614,14 +632,15 @@ section h2:after {
     flex-wrap: wrap;
 }
 
+/* 游戏项通用样式 */
 .game-item {
-    background: white;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
     padding: 30px;
+    background: white;
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    flex: 1;
-    min-width: 300px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -639,6 +658,48 @@ section h2:after {
 .game-item p {
     margin-bottom: 20px;
     color: #666;
+    text-align: center;
+}
+
+/* 记忆配对游戏样式 */
+.memory-pairing-section {
+    background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,235,240,0.9) 100%);
+}
+
+.memory-game-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.memory-game-container {
+    width: 100%;
+    max-width: 550px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* 爱的留言游戏样式 */
+.love-message-section {
+    background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(235,245,255,0.9) 100%);
+}
+
+.love-message-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 回忆问答游戏样式 */
+.memory-quiz-section {
+    background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(235,255,245,0.9) 100%);
+}
+
+.memory-quiz-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .game-button {
@@ -715,50 +776,66 @@ section h2:after {
 
 /* 记忆配对游戏样式 */
 .memory-game-grid {
-    max-width: 100%;
-    overflow: hidden;
-    display: grid !important;
-    grid-template-columns: repeat(4, 1fr) !important;
-    gap: 10px !important;
-    margin-top: 20px !important;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    justify-content: center;
+    width: 100%;
+    max-width: 550px;
+    margin: 0 auto;
 }
 
 .memory-card {
-    width: 80px !important;
-    height: 80px !important;
-    position: relative !important;
-    cursor: pointer !important;
-    overflow: hidden !important;
-    border-radius: 10px !important;
-    background-color: #fff !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    width: 120px;
+    height: 120px;
+    position: relative;
+    cursor: pointer;
+    perspective: 1000px;
+    transition: transform 0.3s ease;
+}
+
+.memory-card:hover:not(.flipped) {
+    transform: scale(1.05);
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.6s ease;
+    transform-style: preserve-3d;
+}
+
+.card-front,
+.card-back {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    position: absolute;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .card-back {
-    width: 100% !important;
-    height: 100% !important;
-    background-color: #e91e63 !important;
-    border-radius: 10px !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    color: white !important;
-    font-size: 24px !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    transition: transform 0.3s ease !important;
+    background-color: #e91e63;
+    color: white;
+    font-size: 32px;
 }
 
 .card-front {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    border-radius: 10px !important;
-    transition: transform 0.3s ease !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
+    background-color: white;
+    transform: rotateY(180deg);
+}
+
+.card-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: opacity 0.3s ease;
 }
 
 .quiz-options {

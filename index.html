@@ -148,41 +148,47 @@
                 <div class="letter-paper">
                     <p>亲爱的807：</p>
                     <p>今天是你的生日，首先要说的是：生日快乐！🎂</p>
-                    <p>回想我们在一起的这一年多时光，每一天都充满了温暖和幸福。从我们第一次相遇到现在，有欢笑，有泪水，但更多的是彼此陪伴的感动。</p>
+                    <p>回想我们在一起的这一年多时光，每一天都充满了温暖和幸福。从我们第一次相遇到现在，有欢笑，有泪水，但更多的是开心与感动。</p>
                     <p>感谢你一直以来的理解、支持和爱。你是我生命中最美好的礼物，我珍惜和你在一起的每一分每一秒。</p>
-                    <p>今天，我想对你说：我爱你，不仅是今天，而是未来的每一天。愿我们的爱情如美酒般醇厚，如钻石般永恒。</p>
+                    <p>今天，我想对你说：我倒，越来越中意你了嗷，不仅是今天，而是未来的每一天哦。</p>
                     <p style="text-align: right;">永远爱你的人：HCB</p>
                     <p>2025年09月09日</p>
                 </div>
             </div>
         </section>
         
-        <!-- 互动游戏部分 -->
-        <section class="game-section">
-            <h2>为你准备的小游戏</h2>
-            <div class="game-container">
-                <div class="game-item" id="memory-game">
-                    <h3>我们的记忆配对</h3>
-                    <p>点击开始游戏，配对我们的回忆吧！</p>
-                    <button class="game-button" onclick="startMemoryGame()">开始游戏</button>
-                </div>
-                <div class="game-item" id="message-box">
-                    <h3>爱的留言</h3>
-                    <p>写下你想对我说的话...</p>
-                    <textarea id="love-message" placeholder="在这里写下你的留言..."></textarea>
-                    <button class="game-button" onclick="saveLoveMessage()">保存留言</button>
-                    <div id="saved-messages" class="saved-messages"></div>
-                </div>
-                <div class="game-item" id="memory-quiz">
-                    <h3>我们的回忆问答</h3>
-                    <p>测试你对我们回忆的了解程度！</p>
-                    <button class="game-button" onclick="startMemoryQuiz()">开始问答</button>
-                    <div id="quiz-container" class="quiz-container" style="display: none;">
-                        <div id="quiz-question" class="quiz-question"></div>
-                        <div id="quiz-options" class="quiz-options"></div>
-                        <div id="quiz-result" class="quiz-result"></div>
-                        <button class="game-button" id="next-question" onclick="nextQuestion()" style="display: none;">下一题</button>
-                    </div>
+        <!-- 记忆配对游戏 -->
+        <section class="game-section memory-pairing-section">
+            <h2>我们的记忆配对</h2>
+            <div class="game-item memory-game-wrapper">
+                <p>点击开始游戏，配对我们的回忆吧！</p>
+                <button class="game-button" onclick="startMemoryGame()">开始游戏</button>
+                <div id="memory-game" class="memory-game-container"></div>
+            </div>
+        </section>
+
+        <!-- 爱的留言 -->
+        <section class="game-section love-message-section">
+            <h2>爱的留言</h2>
+            <div class="game-item love-message-wrapper">
+                <p>写下你想对我说的话...</p>
+                <textarea id="love-message" placeholder="在这里写下你的留言..."></textarea>
+                <button class="game-button" onclick="saveLoveMessage()">保存留言</button>
+                <div id="saved-messages" class="saved-messages"></div>
+            </div>
+        </section>
+
+        <!-- 回忆问答游戏 -->
+        <section class="game-section memory-quiz-section">
+            <h2>我们的回忆问答</h2>
+            <div class="game-item memory-quiz-wrapper">
+                <p>测试你对我们回忆的了解程度！</p>
+                <button class="game-button" onclick="startMemoryQuiz()">开始问答</button>
+                <div id="quiz-container" class="quiz-container" style="display: none;">
+                    <div id="quiz-question" class="quiz-question"></div>
+                    <div id="quiz-options" class="quiz-options"></div>
+                    <div id="quiz-result" class="quiz-result"></div>
+                    <button class="game-button" id="next-question" onclick="nextQuestion()" style="display: none;">下一题</button>
                 </div>
             </div>
         </section>

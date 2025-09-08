@@ -415,6 +415,10 @@ function startMemoryQuiz() {
     const quizContainer = document.getElementById('quiz-container');
     quizContainer.style.display = 'block';
     
+    // 重置下一题按钮的点击事件
+    const nextButton = document.getElementById('next-question');
+    nextButton.onclick = nextQuestion;
+    
     // 显示第一题
     showQuestion();
 }
@@ -1281,7 +1285,7 @@ function initBirthdayWall() {
         // 初始化一些预设祝福
         const presetBlessings = [
             '愿你永远年轻美丽！',
-            '生日快乐，我的爱人！',
+            '生日快乐，我的宝宝！',
             '每一天都要开心哦！',
             '我爱你，生日快乐！',
             '愿所有梦想都成真！'
